@@ -36,7 +36,8 @@ import nothing, {
 	MAP,
 	ZED,
 	ZZ,
-	FIZZBUZZ
+	FIZZBUZZ,
+	TO_DIGITS
 } from '../nothing'
 
 const to_integer = fn => fn( x => x + 1 )( 0 )
@@ -51,7 +52,7 @@ const to_array = fn => {
 }
 
 const to_char = fn => '0123456789BFiuz'.substr( to_integer( fn ), 1 )
-const to_string = fn => to_array( fn ).map( to_char ).join('')
+const to_string = fn => to_array( fn ).map( to_char ).join( '' )
 
 describe( 'nothing', () => {
 	it( 'ZERO should be 0', () => equal( to_integer( ZERO ), 0 ) )
@@ -200,5 +201,16 @@ describe( 'nothing', () => {
 		equal( to_char( ZED ), 'z' )
 		equal( to_string( ZZ ), 'zz' )
 		equal( to_string( FIZZBUZZ ), 'FizzBuzz' )
+	} )
+
+	it( 'should compose digits', () => {
+		deepEqual(
+			to_array( TO_DIGITS( FIVE ) ).map( to_integer ),
+			[ 5 ]
+		)
+		deepEqual(
+			to_string( TO_DIGITS( POWER( FIVE )( THREE ) ) ),
+			'125'
+		)
 	} )
 } )

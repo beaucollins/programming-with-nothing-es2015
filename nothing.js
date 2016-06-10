@@ -26,6 +26,14 @@ export const IF = b => b
 export const IS_ZERO = n => n( () => FALSE )( TRUE )
 export const IS_LESS_OR_EQUAL = m => n => IS_ZERO( SUBTRACT( m )( n ) )
 
+export const DIV = Z( f => m => n =>
+	IF( IS_LESS_OR_EQUAL( n )( m ) )(
+		x => INCREMENT( f( SUBTRACT( m )( n ) )( n ) )( x )
+	)(
+		ZERO
+	)
+)
+
 export const MOD = Z( f => m => n => IF( IS_LESS_OR_EQUAL( n )( m ) )( x => f( SUBTRACT( m )( n ) )( n )( x ) )( m ) )
 
 export const TWO = p => x => p( p( x ) )
@@ -54,6 +62,7 @@ export const FOLD = Z( f => l => x => g =>
 	)
 )
 
+export const PUSH = l => x => FOLD( l )( UNSHIFT( EMPTY )( x ) )( UNSHIFT )
 export const MAP = k => f => FOLD( k )( EMPTY )( l => x => UNSHIFT( l )( f( x ) ) )
 
 export const RANGE = Z( f => m => n =>
@@ -76,16 +85,24 @@ export const FIZZ = UNSHIFT( UNSHIFT( ZZ )( I ) )( F )
 export const BUZZ = UNSHIFT( UNSHIFT( ZZ )( U ) )( B )
 export const FIZZBUZZ = UNSHIFT( UNSHIFT( UNSHIFT( UNSHIFT( BUZZ )( ZED ) )( ZED ) )( I ) )( F )
 
-export default ( out ) => {
+export const TO_DIGITS = Z( f => n => PUSH(
+	IF( IS_LESS_OR_EQUAL( n )( DECREMENT( TEN ) ) )(
+		EMPTY
+	)(
+		x => f( DIV( n )( TEN ) )( x )
+	)
+)( MOD( n )( TEN ) ) )
+
+export default () => {
 	MAP( RANGE( ONE )( HUNDRED ) )( n =>
-		IF( IS_ZERO( MOD( n )( FIFTEEN ) ) )( () => {
-			out( 'FizzBuzz' )
-		} )( IF( IS_ZERO( MOD( n )( THREE ) ) )( () => {
-			out( 'Fizz' )
-		} )( IF( IS_ZERO( MOD( n )( FIVE ) ) )( () => {
-			out( 'Buzz' )
-		} )( () => {
-			out( n )
-		} ) ) )
+		IF( IS_ZERO( MOD( n )( FIFTEEN ) ) )(
+			FIZZBUZZ
+		)( IF( IS_ZERO( MOD( n )( THREE ) ) )(
+			FIZZ
+		)( IF( IS_ZERO( MOD( n )( FIVE ) ) )(
+			BUZZ
+		)(
+			TO_DIGITS( n )
+		) ) )
 	)
 }
