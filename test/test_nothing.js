@@ -1,5 +1,5 @@
 /*eslint new-cap: "off"*/
-import { equal, ok } from 'assert'
+import { equal, ok, deepEqual } from 'assert'
 
 import {
 	ZERO,
@@ -21,11 +21,28 @@ import {
 	MULTIPLY,
 	POWER,
 	IS_LESS_OR_EQUAL,
-	MOD
+	MOD,
+	PAIR,
+	RIGHT,
+	LEFT,
+	UNSHIFT,
+	FIRST,
+	EMPTY,
+	REST,
+	IS_EMPTY
 } from '../nothing'
 
 const to_integer = ( fn ) => fn( x => x + 1 )( 0 )
 const to_boolean = ( fn ) => IF( fn )( true )( false )
+const to_array = ( fn ) => {
+	let a = []
+	while ( ! to_boolean( IS_EMPTY( fn ) ) ) {
+		a.push( FIRST( fn ) )
+		fn = REST( fn )
+	}
+	return a
+}
+
 describe( 'nothing', () => {
 	it( 'ZERO should be 0', () => equal( to_integer( ZERO ), 0 ) )
 	it( 'ONE should be 1', () => equal( to_integer( ONE ), 1 ) )
@@ -98,5 +115,43 @@ describe( 'nothing', () => {
 			to_integer( MOD( THREE )( TWO ) ),
 			to_integer( ONE )
 		)
+	} )
+
+	it( 'PAIR can access LEFT and RIGHT', () => {
+		let pair = PAIR( THREE )( FIVE )
+		equal( to_integer( LEFT( pair ) ), 3 )
+		equal( to_integer( RIGHT( pair ) ), 5 )
+	} )
+
+	it( 'empty list should be empty', () => {
+		ok( to_boolean( IS_EMPTY( EMPTY ) ) )
+	} )
+
+	describe( 'with list', () => {
+		let list
+		beforeEach( () => {
+			list = UNSHIFT(
+				UNSHIFT(
+					UNSHIFT( EMPTY )( THREE )
+				)( TWO )
+			)( ONE )
+		} )
+
+		it( 'access values', () => {
+			equal( to_integer( FIRST( list ) ), 1 )
+			equal( to_integer( FIRST( REST( list ) ) ), 2 )
+			equal( to_integer( FIRST( REST( REST( list ) ) ) ), 3 )
+		} )
+
+		it( 'should not be EMPTY', () => {
+			ok( ! to_boolean( IS_EMPTY( list ) ) )
+		} )
+
+		it( 'should conver to array', () => {
+			deepEqual(
+				to_array( list ).map( to_integer ),
+				[ 1, 2, 3 ]
+			)
+		} )
 	} )
 } )

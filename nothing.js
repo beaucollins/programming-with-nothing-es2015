@@ -36,6 +36,16 @@ export const NINE = ADD( EIGHT )( ONE )
 export const FIFTEEN = p => x => p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( x ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
 export const HUNDRED = p => x => p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( x ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
 
+export const PAIR = x => y => f => f( x )( y )
+export const LEFT = p => p( x => () => x )
+export const RIGHT = p => p( () => y => y )
+
+export const EMPTY = PAIR( TRUE )( TRUE )
+export const UNSHIFT = l => x => PAIR( FALSE )( PAIR( x )( l ) )
+export const IS_EMPTY = LEFT
+export const FIRST = l => LEFT( RIGHT( l ) )
+export const REST = l => RIGHT( RIGHT( l ) )
+
 export default ( out ) => {
 	let i = ZERO;
 	while ( i < HUNDRED ) {
