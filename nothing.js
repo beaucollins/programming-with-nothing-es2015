@@ -54,6 +54,8 @@ export const FOLD = Z( f => l => x => g =>
 	)
 )
 
+export const MAP = k => f => FOLD( k )( EMPTY )( l => x => UNSHIFT( l )( f( x ) ) )
+
 export const RANGE = Z( f => m => n =>
 	IF( IS_LESS_OR_EQUAL( m )( n ) )(
 		x => UNSHIFT( f( INCREMENT( m ) )( n ) )( m )( x )
@@ -63,7 +65,7 @@ export const RANGE = Z( f => m => n =>
 )
 
 export default ( out ) => {
-	RANGE( ONE )( HUNDRED ).map( n =>
+	MAP( RANGE( ONE )( HUNDRED ) )( n =>
 		IF( IS_ZERO( MOD( n )( FIFTEEN ) ) )( () => {
 			out( 'FizzBuzz' )
 		} )( IF( IS_ZERO( MOD( n )( THREE ) ) )( () => {

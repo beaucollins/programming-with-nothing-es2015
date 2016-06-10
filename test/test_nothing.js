@@ -31,7 +31,8 @@ import {
 	REST,
 	IS_EMPTY,
 	RANGE,
-	FOLD
+	FOLD,
+	MAP
 } from '../nothing'
 
 const to_integer = ( fn ) => fn( x => x + 1 )( 0 )
@@ -177,6 +178,14 @@ describe( 'nothing', () => {
 				FOLD( RANGE( ONE )( FIVE ) )( ONE )( MULTIPLY )
 			),
 			120
+		)
+	} )
+
+	it( 'MAP', () => {
+		let list = MAP( RANGE( ONE )( FIVE ) )( INCREMENT )
+		deepEqual(
+			to_array( list ).map( to_integer ),
+			[2, 3, 4, 5, 6]
 		)
 	} )
 } )
