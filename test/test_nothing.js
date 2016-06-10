@@ -1,7 +1,8 @@
 /*eslint new-cap: "off"*/
 import { equal, ok, deepEqual } from 'assert'
+import correct from './correct'
 
-import {
+import nothing, {
 	ZERO,
 	ONE,
 	TWO,
@@ -32,12 +33,15 @@ import {
 	IS_EMPTY,
 	RANGE,
 	FOLD,
-	MAP
+	MAP,
+	ZED,
+	ZZ,
+	FIZZBUZZ
 } from '../nothing'
 
-const to_integer = ( fn ) => fn( x => x + 1 )( 0 )
-const to_boolean = ( fn ) => IF( fn )( true )( false )
-const to_array = ( fn ) => {
+const to_integer = fn => fn( x => x + 1 )( 0 )
+const to_boolean = fn => IF( fn )( true )( false )
+const to_array = fn => {
 	let a = []
 	while ( ! to_boolean( IS_EMPTY( fn ) ) ) {
 		a.push( FIRST( fn ) )
@@ -45,6 +49,9 @@ const to_array = ( fn ) => {
 	}
 	return a
 }
+
+const to_char = fn => '0123456789BFiuz'.substr( to_integer( fn ), 1 )
+const to_string = fn => to_array( fn ).map( to_char ).join('')
 
 describe( 'nothing', () => {
 	it( 'ZERO should be 0', () => equal( to_integer( ZERO ), 0 ) )
@@ -187,5 +194,11 @@ describe( 'nothing', () => {
 			to_array( list ).map( to_integer ),
 			[2, 3, 4, 5, 6]
 		)
+	} )
+
+	it( 'encode characters', () => {
+		equal( to_char( ZED ), 'z' )
+		equal( to_string( ZZ ), 'zz' )
+		equal( to_string( FIZZBUZZ ), 'FizzBuzz' )
 	} )
 } )

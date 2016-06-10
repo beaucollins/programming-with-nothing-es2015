@@ -64,6 +64,18 @@ export const RANGE = Z( f => m => n =>
 	)
 )
 
+export const TEN = MULTIPLY( TWO )( FIVE )
+const B = TEN
+const F = INCREMENT( B )
+const I = INCREMENT( F )
+const U = INCREMENT( I )
+export const ZED = INCREMENT( U )
+
+export const ZZ = UNSHIFT( UNSHIFT( EMPTY )( ZED ) )( ZED )
+export const FIZZ = UNSHIFT( UNSHIFT( ZZ )( I ) )( F )
+export const BUZZ = UNSHIFT( UNSHIFT( ZZ )( U ) )( B )
+export const FIZZBUZZ = UNSHIFT( UNSHIFT( UNSHIFT( UNSHIFT( BUZZ )( ZED ) )( ZED ) )( I ) )( F )
+
 export default ( out ) => {
 	MAP( RANGE( ONE )( HUNDRED ) )( n =>
 		IF( IS_ZERO( MOD( n )( FIFTEEN ) ) )( () => {
