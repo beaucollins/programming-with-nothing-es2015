@@ -9,11 +9,12 @@ import {
 	FIFTEEN,
 	HUNDRED,
 	TRUE,
-	FALSE
+	FALSE,
+	IF
 } from '../nothing'
 
 const to_integer = ( fn ) => fn( x => x + 1 )( 0 )
-const to_boolean = ( fn ) => fn( true )( false )
+const to_boolean = ( fn ) => IF( fn )( true )( false )
 describe( 'nothing', () => {
 	it( 'ZERO should be 0', () => equal( to_integer( ZERO ), 0 ) )
 	it( 'ONE should be 1', () => equal( to_integer( ONE ), 1 ) )
