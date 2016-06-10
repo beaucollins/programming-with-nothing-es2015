@@ -46,6 +46,14 @@ export const IS_EMPTY = LEFT
 export const FIRST = l => LEFT( RIGHT( l ) )
 export const REST = l => RIGHT( RIGHT( l ) )
 
+export const FOLD = Z( f => l => x => g =>
+	IF( IS_EMPTY( l ) )(
+		x
+	)(
+		y => g( f( REST( l ) )( x )( g ) )( FIRST( l ) )( y )
+	)
+)
+
 export const RANGE = Z( f => m => n =>
 	IF( IS_LESS_OR_EQUAL( m )( n ) )(
 		x => UNSHIFT( f( INCREMENT( m ) )( n ) )( m )( x )

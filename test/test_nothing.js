@@ -30,7 +30,8 @@ import {
 	EMPTY,
 	REST,
 	IS_EMPTY,
-	RANGE
+	RANGE,
+	FOLD
 } from '../nothing'
 
 const to_integer = ( fn ) => fn( x => x + 1 )( 0 )
@@ -161,6 +162,21 @@ describe( 'nothing', () => {
 		deepEqual(
 			to_array( range ).map( to_integer ),
 			[1, 2, 3, 4, 5]
+		)
+	} )
+
+	it( 'FOLD', () => {
+		equal(
+			to_integer(
+				FOLD( RANGE( ONE )( FIVE ) )( ZERO )( ADD )
+			),
+			15
+		)
+		equal(
+			to_integer(
+				FOLD( RANGE( ONE )( FIVE ) )( ONE )( MULTIPLY )
+			),
+			120
 		)
 	} )
 } )
