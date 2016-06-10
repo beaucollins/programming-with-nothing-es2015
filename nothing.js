@@ -4,6 +4,9 @@
 FizzBuzz only using arrow functions
 
 */
+
+export const Y = f => ( x => f( x( x ) ) )
+                      ( x => f( x( x ) ) )
 export const ZERO = () => x => x
 export const ONE = p => x => p( x )
 
@@ -23,7 +26,7 @@ export const IF = b => b
 export const IS_ZERO = n => n( () => FALSE )( TRUE )
 export const IS_LESS_OR_EQUAL = m => n => IS_ZERO( SUBTRACT( m )( n ) )
 
-export const MOD = m => n => IF( IS_LESS_OR_EQUAL( n )( m ) )( x => MOD( SUBTRACT( m )( n ) )( n )( x ) )( m )
+export const MOD = Y( f => m => n => IF( IS_LESS_OR_EQUAL( n )( m ) )( x => f( SUBTRACT( m )( n ) )( n )( x ) )( m ) )
 
 export const TWO = p => x => p( p( x ) )
 export const THREE = p => x => p( p( p( x ) ) )
