@@ -29,7 +29,8 @@ import {
 	FIRST,
 	EMPTY,
 	REST,
-	IS_EMPTY
+	IS_EMPTY,
+	RANGE
 } from '../nothing'
 
 const to_integer = ( fn ) => fn( x => x + 1 )( 0 )
@@ -147,11 +148,19 @@ describe( 'nothing', () => {
 			ok( ! to_boolean( IS_EMPTY( list ) ) )
 		} )
 
-		it( 'should conver to array', () => {
+		it( 'should convert to array', () => {
 			deepEqual(
 				to_array( list ).map( to_integer ),
 				[ 1, 2, 3 ]
 			)
 		} )
+	} )
+
+	it( 'compute RANGE', () => {
+		let range = RANGE( ONE )( FIVE )
+		deepEqual(
+			to_array( range ).map( to_integer ),
+			[1, 2, 3, 4, 5]
+		)
 	} )
 } )

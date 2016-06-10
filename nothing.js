@@ -46,6 +46,14 @@ export const IS_EMPTY = LEFT
 export const FIRST = l => LEFT( RIGHT( l ) )
 export const REST = l => RIGHT( RIGHT( l ) )
 
+export const RANGE = Z( f => m => n =>
+	IF( IS_LESS_OR_EQUAL( m )( n ) )(
+		x => UNSHIFT( f( INCREMENT( m ) )( n ) )( m )( x )
+	)(
+		EMPTY
+	)
+)
+
 export default ( out ) => {
 	let i = ZERO;
 	while ( i < HUNDRED ) {
