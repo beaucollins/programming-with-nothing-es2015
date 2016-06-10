@@ -213,4 +213,11 @@ describe( 'nothing', () => {
 			'125'
 		)
 	} )
+
+	it( 'fizzbuzz', () => {
+		deepEqual(
+			to_array( nothing ).map( to_string ),
+			correct
+		)
+	} )
 } )

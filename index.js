@@ -1,3 +1,4 @@
-import { fizz_buzz } from './everything'
+import everything from './everything'
+import nothing from './nothing'
 
-fizz_buzz()
+console.log( nothing )
