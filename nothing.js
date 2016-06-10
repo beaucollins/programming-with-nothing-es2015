@@ -15,7 +15,7 @@ export const HUNDRED = p => x => p( p( p( p( p( p( p( p( p( p( p( p( p( p( p( p(
 export const TRUE = x => () => x
 export const FALSE = () => y => y
 
-export const IF = b => x => y => b( x )( y )
+export const IF = b => b
 
 export default ( out ) => {
 	let i = ZERO;
