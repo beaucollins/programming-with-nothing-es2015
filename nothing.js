@@ -55,17 +55,15 @@ export const RANGE = Z( f => m => n =>
 )
 
 export default ( out ) => {
-	let i = ZERO;
-	while ( i < HUNDRED ) {
-		i ++;
-		IF( IS_ZERO( MOD( i )( FIFTEEN ) ) )( () => {
+	RANGE( ONE )( HUNDRED ).map( n =>
+		IF( IS_ZERO( MOD( n )( FIFTEEN ) ) )( () => {
 			out( 'FizzBuzz' )
-		} )( IF( IS_ZERO( MOD( i )( THREE ) ) )( () => {
+		} )( IF( IS_ZERO( MOD( n )( THREE ) ) )( () => {
 			out( 'Fizz' )
-		} )( IF( IS_ZERO( MOD( i )( FIVE ) ) )( () => {
+		} )( IF( IS_ZERO( MOD( n )( FIVE ) ) )( () => {
 			out( 'Buzz' )
 		} )( () => {
-			out( i )
+			out( n )
 		} ) ) )
-	}
+	)
 }
