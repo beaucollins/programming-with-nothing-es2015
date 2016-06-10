@@ -23,6 +23,8 @@ export const IF = b => b
 export const IS_ZERO = n => n( () => FALSE )( TRUE )
 export const IS_LESS_OR_EQUAL = m => n => IS_ZERO( SUBTRACT( m )( n ) )
 
+export const MOD = m => n => IF( IS_LESS_OR_EQUAL( n )( m ) )( MOD( SUBTRACT( m )( n ) )( n ) )( m )
+
 export const TWO = p => x => p( p( x ) )
 export const THREE = p => x => p( p( p( x ) ) )
 export const FIVE = p => x => p( p( p( p( p( x ) ) ) ) )

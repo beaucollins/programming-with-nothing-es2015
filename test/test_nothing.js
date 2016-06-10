@@ -20,7 +20,8 @@ import {
 	SUBTRACT,
 	MULTIPLY,
 	POWER,
-	IS_LESS_OR_EQUAL
+	IS_LESS_OR_EQUAL,
+	MOD
 } from '../nothing'
 
 const to_integer = ( fn ) => fn( x => x + 1 )( 0 )
@@ -90,5 +91,12 @@ describe( 'nothing', () => {
 
 	it( 'THREE is not less than or equal to TWO', () => {
 		ok( ! to_boolean( IS_LESS_OR_EQUAL( THREE )( TWO ) ) )
+	} )
+
+	it( 'THREE MOD of TWO should be ONE', () => {
+		equal(
+			to_integer( MOD( THREE )( TWO ) ),
+			to_integer( ONE )
+		)
 	} )
 } )
