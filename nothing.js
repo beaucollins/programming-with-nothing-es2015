@@ -40,11 +40,11 @@ export default ( out ) => {
 	let i = ZERO;
 	while ( i < HUNDRED ) {
 		i ++;
-		IF( IS_ZERO( i % FIFTEEN ) )( () => {
+		IF( IS_ZERO( MOD( i )( FIFTEEN ) ) )( () => {
 			out( 'FizzBuzz' )
-		} )( IF( IS_ZERO( i % THREE ) )( () => {
+		} )( IF( IS_ZERO( MOD( i )( THREE ) ) )( () => {
 			out( 'Fizz' )
-		} )( IF( IS_ZERO( i % FIVE ) )( () => {
+		} )( IF( IS_ZERO( MOD( i )( FIVE ) ) )( () => {
 			out( 'Buzz' )
 		} )( () => {
 			out( i )
