@@ -19,7 +19,8 @@ import {
 	ADD,
 	SUBTRACT,
 	MULTIPLY,
-	POWER
+	POWER,
+	IS_LESS_OR_EQUAL
 } from '../nothing'
 
 const to_integer = ( fn ) => fn( x => x + 1 )( 0 )
@@ -77,5 +78,17 @@ describe( 'nothing', () => {
 			to_integer( POWER( THREE )( TWO ) ),
 			to_integer( NINE )
 		)
+	} )
+
+	it( 'ONE is less than or equal to TWO', () => {
+		ok( to_boolean( IS_LESS_OR_EQUAL( ONE )( TWO ) ) )
+	} )
+
+	it( 'TWO is less than or equal to TWO', () => {
+		ok( to_boolean( IS_LESS_OR_EQUAL( TWO )( TWO ) ) )
+	} )
+
+	it( 'THREE is not less than or equal to TWO', () => {
+		ok( ! to_boolean( IS_LESS_OR_EQUAL( THREE )( TWO ) ) )
 	} )
 } )
