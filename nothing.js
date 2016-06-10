@@ -16,19 +16,20 @@ export const TRUE = x => () => x
 export const FALSE = () => y => y
 
 export const IF = b => b
+export const IS_ZERO = n => n( () => FALSE )( TRUE )
 
 export default ( out ) => {
 	let i = ZERO;
 	while ( i < HUNDRED ) {
 		i ++;
-		if ( i % FIFTEEN === ZERO ) {
+		IF( IS_ZERO( i % FIFTEEN ) )( () => {
 			out( 'FizzBuzz' )
-		} else if ( i % THREE === ZERO ) {
+		} )( IF( IS_ZERO( i % THREE ) )( () => {
 			out( 'Fizz' )
-		} else if ( i % FIVE === ZERO ) {
+		} )( IF( IS_ZERO( i % FIVE ) )( () => {
 			out( 'Buzz' )
-		} else {
+		} )( () => {
 			out( i )
-		}
+		} ) ) )
 	}
 }

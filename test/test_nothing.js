@@ -10,7 +10,8 @@ import {
 	HUNDRED,
 	TRUE,
 	FALSE,
-	IF
+	IF,
+	IS_ZERO
 } from '../nothing'
 
 const to_integer = ( fn ) => fn( x => x + 1 )( 0 )
@@ -25,4 +26,6 @@ describe( 'nothing', () => {
 	it( 'HUNDRED should be 100', () => equal( to_integer( HUNDRED ), 100 ) )
 	it( 'TRUE should be true', () => ok( to_boolean( TRUE ) ) )
 	it( 'FALSE should be false', () => ok( ! to_boolean( FALSE ) ) )
+	it( 'ZERO is IS_ZERO', () => ok( to_boolean( IS_ZERO( ZERO ) ) ) )
+	it( 'non-ZERO is not IS_ZERO', () => ok( ! to_boolean( IS_ZERO( HUNDRED ) ) ) )
 } )
